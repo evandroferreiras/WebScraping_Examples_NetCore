@@ -17,7 +17,6 @@ namespace CSharpExample
             IList<RowTableContent> table = GetTableContentFromHtml(html);
 
             var groupedData = table.GroupBy(x => x.Functional);
-
             foreach (var item in groupedData)
             {
                 Console.WriteLine($"{item.Key} {item.Count()}");
@@ -42,8 +41,7 @@ namespace CSharpExample
                 rtc.Descricao = r.SelectNodes("th")[0].InnerText;
                 rtc.Functional = new Regex("(Yes\\[.*\\]|Yes)").Replace(functionalText,"Yes");
                 result.Add(rtc);
-            }
-            
+            }            
             return result;
         }
 
@@ -56,13 +54,11 @@ namespace CSharpExample
             {
                 using (Stream receiveStream = response.GetResponseStream())
                 {
-                    using(StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8)) {
+                    using(StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8)) 
+                    {
                         result = readStream.ReadToEnd();
-                        readStream.Close();
                     }
-                    receiveStream.Close();
                 }
-                response.Close();
             }
             return result;
         }
